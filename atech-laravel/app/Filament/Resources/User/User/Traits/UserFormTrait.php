@@ -24,7 +24,10 @@ trait UserFormTrait
                 ->maxLength(255),
             TextInput::make('password')
                 ->password()
-                ->required()
+                ->required(function (string $context): bool {
+                    return $context === 'create';
+                })
+                ->dehydrated(fn ($state) => filled($state))
                 ->maxLength(255),
             Select::make('roles')
                 ->relationship('roles', 'name')

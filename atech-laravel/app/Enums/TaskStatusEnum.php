@@ -3,9 +3,9 @@
 namespace App\Enums;
 use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Contracts\HasColor;
-use Filament\Support\Contracts\HasIcon;
+// use Filament\Support\Contracts\HasIcon;
 
-enum TaskStatusEnum: string implements HasLabel, HasColor, HasIcon
+enum TaskStatusEnum: string implements HasLabel, HasColor
 {
     case Pending = 'pending';
     case InProgress = 'in_progress';
@@ -14,9 +14,9 @@ enum TaskStatusEnum: string implements HasLabel, HasColor, HasIcon
     public function getLabel(): string
     {
         return match ($this) {
-            self::Pending => 'pending',
-            self::InProgress => 'in-progress',
-            self::Completed => 'completed',
+            self::Pending => 'Pending',
+            self::InProgress => 'In Progress',
+            self::Completed => 'Completed',
         };
     }
 
@@ -29,14 +29,14 @@ enum TaskStatusEnum: string implements HasLabel, HasColor, HasIcon
         };
     }
 
-    public function getIcon(): string
-    {
-        return match ($this) {
-            self::Pending => 'clock',
-            self::InProgress => 'clock',
-            self::Completed => 'check',
-        };
-    }
+    // public function getIcon(): string
+    // {
+    //     return match ($this) {
+    //         self::Pending => 'clock',
+    //         self::InProgress => 'clock',
+    //         self::Completed => 'check',
+    //     };
+    // }
 
     public function getBadgeColor(): string
     {

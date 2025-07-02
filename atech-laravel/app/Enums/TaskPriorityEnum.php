@@ -4,9 +4,9 @@ namespace App\Enums;
 
 use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Contracts\HasColor;
-use Filament\Support\Contracts\HasIcon;
+// use Filament\Support\Contracts\HasIcon;
 
-enum TaskPriorityEnum: string implements HasLabel, HasColor, HasIcon
+enum TaskPriorityEnum: string implements HasLabel, HasColor
 {
     case Low = 'low';
     case Medium = 'medium';
@@ -30,12 +30,12 @@ enum TaskPriorityEnum: string implements HasLabel, HasColor, HasIcon
         };
     }
 
-    public function getIcon(): string
-    {
-        return match ($this) {
-            self::Low => 'clock',
-            self::Medium => 'clock',
-            self::High => 'clock',
-        };
-    }
+    // public function getIcon(): string
+    // {
+    //     return match ($this) {
+    //         self::Low => 'clock',
+    //         self::Medium => 'clock',
+    //         self::High => 'clock',
+    //     };
+    // }
 }

@@ -35,10 +35,10 @@ class TaskResource extends Resource
             ->schema([
                 TextInput::make('title')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(150),
                 Textarea::make('description')
                     ->required()
-                    ->maxLength(255),
+                    ->rows(3),
                 Select::make('status')
                     ->options(TaskStatusEnum::class)
                     ->required(),
@@ -61,12 +61,32 @@ class TaskResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title'),
-                TextColumn::make('description'),
-                TextColumn::make('status'),
+                TextColumn::make('description')
+                    ->limit(50)
+                    ->tooltip(fn (TextColumn $column): string => $column->getState()),
+                TextColumn::make('status')
+                    ->badge()
+                    ->sortable()
+                    ->getStateUsing(function ($record) {
+                        return $record->status->getLabel();
+                    })
+                    ->color(function ($record) {
+                        return $record->status->getColor();
+                    }),
                 TextColumn::make('priority'),
-                TextColumn::make('deadline'),
-                TextColumn::make('user_id'),
-                TextColumn::make('created_by'),
+                TextColumn::make('deadline')
+                    ->date('M d, Y')
+                    ->sortable(),
+                TextColumn::make('user_id')
+                    ->label('Assigned To')
+                    ->getStateUsing(function ($record) {
+                        return $record->user->name;
+                    }),
+                TextColumn::make('created_by')
+                    ->label('Created By')
+                    ->getStateUsing(function ($record) {
+                        return $record->createdBy->name;
+                    }),
             ])
             ->filters([
                 //
